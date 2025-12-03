@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"team99_listing_service/module/model"
+	"team99_user_service/module/model"
 
 	"gorm.io/gorm"
 )
@@ -38,7 +38,7 @@ func (r userRepository) GetUser(request model.GetUserRequest) ([]model.User, err
 
 func (r userRepository) GetUserById(id string) (model.User, error) {
 	var user model.User
-	err := r.db.Where("user_id = ?", id).Find(&user).Error
+	err := r.db.Where("user_id = ?", id).First(&user).Error
 	return user, err
 }
 

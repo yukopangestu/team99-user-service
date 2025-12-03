@@ -1,8 +1,8 @@
 package service
 
 import (
-	"team99_listing_service/module/model"
-	"team99_listing_service/module/repository"
+	"team99_user_service/module/model"
+	"team99_user_service/module/repository"
 )
 
 type UserServiceInterface interface {

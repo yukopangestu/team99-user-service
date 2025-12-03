@@ -2,8 +2,8 @@ package database
 
 import (
 	"log"
-	"team99_listing_service/config"
-	"team99_listing_service/module/model"
+	"team99_user_service/config"
+	"team99_user_service/module/model"
 	"time"
 
 	"gorm.io/driver/mysql"

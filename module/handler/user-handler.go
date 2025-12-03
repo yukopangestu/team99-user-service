@@ -2,8 +2,8 @@ package handler
 
 import (
 	"net/http"
-	"team99_listing_service/module/model"
-	"team99_listing_service/module/service"
+	"team99_user_service/module/model"
+	"team99_user_service/module/service"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
