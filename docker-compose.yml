@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: listingdb
+      MYSQL_DATABASE: userdb
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
     ports:
@@ -34,7 +34,7 @@ services:
       DB_PORT: 3306
       DB_USER: myuser
       DB_PASSWORD: mypassword
-      DB_NAME: listingdb
+      DB_NAME: userdb
     depends_on:
       mysql:
         condition: service_healthy
