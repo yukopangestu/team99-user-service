@@ -26,12 +26,12 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB, cfg *config.Config) {
 
 		internalListing := v1.Group("listings")
 		internalListing.Use(authMiddleware.ValidateSecretKey())
-		internalListing.GET("/", userHandler.GetListing)
+		internalListing.GET("/:id", userHandler.GetUserById)
 		internalListing.POST("/", userHandler.CreateListing)
 
 		//This API doesn't need different handler because it has the same request and response with the internal one
 		publicListing := v1.Group("public-api/listings")
-		publicListing.GET("/", userHandler.GetListing)
+		publicListing.GET("/", userHandler.GetUserById)
 		publicListing.POST("/", userHandler.CreateListing)
 	}
 }

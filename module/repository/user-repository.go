@@ -7,8 +7,8 @@ import (
 )
 
 type UserRepository interface {
-	GetListing(request model.GetListingRequest) ([]model.User, error)
-	CreateListing(listing model.User) (model.User, error)
+	GetUserById(id string) (model.User, error)
+	CreateUser(listing model.User) (model.User, error)
 }
 
 type userRepository struct {
@@ -19,28 +19,14 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	return &userRepository{db: db}
 }
 
-func (r userRepository) GetListing(request model.GetListingRequest) ([]model.User, error) {
-	var list []model.User
-	query := r.db.Model(&model.User{})
-	if request.UserId != 0 {
-		query.Where("user_id = ?", request.UserId)
-	}
-
-	if request.PageNum == 0 {
-		request.PageNum = 1
-	}
-
-	if request.PageSize == 0 {
-		request.PageSize = 10
-	}
-
-	query.Limit(request.PageSize).Offset((request.PageNum - 1) * request.PageSize)
-	err := query.Find(&list).Error
-	return list, err
+func (r userRepository) GetUserById(id string) (model.User, error) {
+	var user model.User
+	err := r.db.Where("user_id = ?", id).Find(&user).Error
+	return user, err
 }
 
-func (r userRepository) CreateListing(listing model.User) (model.User, error) {
-	err := r.db.Create(&listing).Error
+func (r userRepository) CreateUser(user model.User) (model.User, error) {
+	err := r.db.Create(&user).Error
 
-	return listing, err
+	return user, err
 }

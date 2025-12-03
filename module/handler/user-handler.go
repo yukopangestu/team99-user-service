@@ -20,17 +20,17 @@ func NewUserHandler(listingService service.UserServiceInterface) *UserHandler {
 	return &UserHandler{service: listingService}
 }
 
-func (h *UserHandler) GetListing(c echo.Context) error {
-	var request model.GetListingRequest
+func (h *UserHandler) GetUserById(c echo.Context) error {
+	var id string = c.Param("id")
 
-	if err := c.Bind(&request); err != nil {
+	if id == "" {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"result":  false,
 			"message": "Invalid request body",
 		})
 	}
 
-	data, err := h.service.GetListing(request)
+	data, err := h.service.GetUserById(id)
 	if err != nil {
 		c.Logger().Error("Failed to get listing, got error:", err)
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{

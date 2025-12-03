@@ -6,7 +6,7 @@ import (
 )
 
 type UserServiceInterface interface {
-	GetListing(request model.GetListingRequest) ([]model.User, error)
+	GetUserById(id string) (model.User, error)
 	PostListing(request model.PostListingRequest) (model.User, error)
 }
 
@@ -18,10 +18,10 @@ func NewUserService(userRepository repository.UserRepository) UserServiceInterfa
 	return &userService{UserRepository: userRepository}
 }
 
-func (s userService) GetListing(request model.GetListingRequest) ([]model.User, error) {
-	data, err := s.UserRepository.GetListing(request)
+func (s userService) GetUserById(id string) (model.User, error) {
+	data, err := s.UserRepository.GetUserById(id)
 	if err != nil {
-		return nil, err
+		return model.User{}, err
 	}
 
 	return data, nil
@@ -38,7 +38,7 @@ func (s userService) PostListing(request model.PostListingRequest) (model.User, 
 		ListingType: request.ListingType,
 	}
 
-	result, err := s.UserRepository.CreateListing(data)
+	result, err := s.UserRepository.CreateUser(data)
 	if err != nil {
 		return model.User{}, err
 	}
