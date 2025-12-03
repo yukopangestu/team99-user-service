@@ -30,16 +30,15 @@ WORKDIR /app
 # Copy the binary from builder
 COPY --from=builder /app/main .
 
-# Create upload directories and set ownership
-RUN mkdir -p /app/uploads/visit-documents /app/uploads/agreement-letters /app/uploads/signed-agreement-letters && \
-    chmod +x /app/main && \
+# Set permissions and ownership
+RUN chmod +x /app/main && \
     chown -R appuser:appuser /app
 
 # Use non-root user
 USER appuser
 
-# Expose port (adjust if needed)
-EXPOSE 8080
+# Expose port
+EXPOSE 11231
 
 # Run the binary
 CMD ["./main"]

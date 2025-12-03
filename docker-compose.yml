@@ -9,7 +9,7 @@ services:
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
     ports:
-      - "3309:3309"
+      - "3309:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -35,6 +35,8 @@ services:
       DB_USER: myuser
       DB_PASSWORD: mypassword
       DB_NAME: userdb
+      JWT_SERVICE_KEY: your-secret-key-here-change-in-production
+      JWT_USER_SERVICE_KEY: your-user-service-key-here-change-in-production
     depends_on:
       mysql:
         condition: service_healthy
