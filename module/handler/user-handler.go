@@ -70,7 +70,7 @@ func (h *UserHandler) GetUserById(c echo.Context) error {
 	})
 }
 
-func (h *UserHandler) CreateListing(c echo.Context) error {
+func (h *UserHandler) CreateUser(c echo.Context) error {
 	var request model.PostUserRequest
 
 	if err := c.Bind(&request); err != nil {
@@ -88,7 +88,7 @@ func (h *UserHandler) CreateListing(c echo.Context) error {
 		})
 	}
 
-	data, err := h.service.PostListing(request)
+	data, err := h.service.PostUser(request)
 	if err != nil {
 		c.Logger().Error("Failed to create listing, got error:", err)
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
