@@ -7,6 +7,7 @@ import (
 )
 
 type UserRepository interface {
+	GetUser(request model.GetUserRequest) ([]model.User, error)
 	GetUserById(id string) (model.User, error)
 	CreateUser(listing model.User) (model.User, error)
 }
@@ -17,6 +18,22 @@ type userRepository struct {
 
 func NewUserRepository(db *gorm.DB) UserRepository {
 	return &userRepository{db: db}
+}
+
+func (r userRepository) GetUser(request model.GetUserRequest) ([]model.User, error) {
+	var user []model.User
+	query := r.db.Model(&model.User{})
+	if request.PageNum == 0 {
+		request.PageNum = 1
+	}
+
+	if request.PageSize == 0 {
+		request.PageSize = 10
+	}
+
+	query.Limit(request.PageSize).Offset((request.PageNum - 1) * request.PageSize)
+	err := query.Find(&user).Error
+	return user, err
 }
 
 func (r userRepository) GetUserById(id string) (model.User, error) {

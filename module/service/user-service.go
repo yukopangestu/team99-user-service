@@ -6,8 +6,9 @@ import (
 )
 
 type UserServiceInterface interface {
+	GetAllUser(request model.GetUserRequest) ([]model.User, error)
 	GetUserById(id string) (model.User, error)
-	PostListing(request model.PostListingRequest) (model.User, error)
+	PostUser(request model.PostUserRequest) (model.User, error)
 }
 
 type userService struct {
@@ -16,6 +17,15 @@ type userService struct {
 
 func NewUserService(userRepository repository.UserRepository) UserServiceInterface {
 	return &userService{UserRepository: userRepository}
+}
+
+func (s userService) GetAllUser(request model.GetUserRequest) ([]model.User, error) {
+	data, err := s.UserRepository.GetUser(request)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 func (s userService) GetUserById(id string) (model.User, error) {
@@ -27,15 +37,11 @@ func (s userService) GetUserById(id string) (model.User, error) {
 	return data, nil
 }
 
-func (s userService) PostListing(request model.PostListingRequest) (model.User, error) {
+func (s userService) PostUser(request model.PostUserRequest) (model.User, error) {
 	var data model.User
 
-	//TODO: Validate user_id with the other services
-
 	data = model.User{
-		UserId:      request.UserId,
-		Price:       request.Price,
-		ListingType: request.ListingType,
+		Name: request.Name,
 	}
 
 	result, err := s.UserRepository.CreateUser(data)

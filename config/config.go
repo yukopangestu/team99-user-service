@@ -6,24 +6,24 @@ import (
 )
 
 type Config struct {
-	DBHost            string
-	DBPort            string
-	DBUser            string
-	DBPassword        string
-	DBName            string
-	JWTServiceKey     string
-	JWTUserServiceKey string
+	DBHost               string
+	DBPort               string
+	DBUser               string
+	DBPassword           string
+	DBName               string
+	JWTServiceKey        string
+	JWTListingServiceKey string
 }
 
 func LoadConfig() *Config {
 	return &Config{
-		DBHost:            getEnv("DB_HOST", "localhost"),
-		DBPort:            getEnv("DB_PORT", "3306"),
-		DBUser:            getEnv("DB_USER", "myuser"),
-		DBPassword:        getEnv("DB_PASSWORD", "mypassword"),
-		DBName:            getEnv("DB_NAME", "mydb"),
-		JWTServiceKey:     getEnv("JWT_SERVICE_KEY", "none"),
-		JWTUserServiceKey: getEnv("JWT_USER_SERVICE_KEY", "mydb"),
+		DBHost:               getEnv("DB_HOST", "localhost"),
+		DBPort:               getEnv("DB_PORT", "3306"),
+		DBUser:               getEnv("DB_USER", "myuser"),
+		DBPassword:           getEnv("DB_PASSWORD", "mypassword"),
+		DBName:               getEnv("DB_NAME", "mydb"),
+		JWTServiceKey:        getEnv("JWT_SERVICE_KEY", "none"),
+		JWTListingServiceKey: getEnv("JWT_USER_SERVICE_KEY", "mydb"),
 	}
 }
 

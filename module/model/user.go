@@ -9,14 +9,11 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at" gorm:"autoUpdateTime:milli"`
 }
 
-type GetListingRequest struct {
+type GetUserRequest struct {
 	PageNum  int `json:"page_num" query:"page_num"`
 	PageSize int `json:"page_size" query:"page_size"`
-	UserId   int `json:"user_id" query:"user_id"`
 }
 
-type PostListingRequest struct {
-	UserId      int    `json:"user_id" form:"user_id" validate:"required"`
-	Price       int    `json:"price" form:"price" validate:"required"`
-	ListingType string `json:"listing_type" form:"listing_type" validate:"required"`
+type PostUserRequest struct {
+	Name string `json:"name" form:"name" validate:"required"`
 }

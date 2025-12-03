@@ -20,6 +20,31 @@ func NewUserHandler(listingService service.UserServiceInterface) *UserHandler {
 	return &UserHandler{service: listingService}
 }
 
+func (h *UserHandler) GetAllUser(c echo.Context) error {
+	var request model.GetUserRequest
+
+	if err := c.Bind(&request); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"result":  false,
+			"message": "Invalid request body",
+		})
+	}
+
+	data, err := h.service.GetAllUser(request)
+	if err != nil {
+		c.Logger().Error("Failed to get listing, got error:", err)
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"result":  false,
+			"message": "Internal server error",
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"result":   true,
+		"listings": data,
+	})
+}
+
 func (h *UserHandler) GetUserById(c echo.Context) error {
 	var id string = c.Param("id")
 
@@ -46,7 +71,7 @@ func (h *UserHandler) GetUserById(c echo.Context) error {
 }
 
 func (h *UserHandler) CreateListing(c echo.Context) error {
-	var request model.PostListingRequest
+	var request model.PostUserRequest
 
 	if err := c.Bind(&request); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
