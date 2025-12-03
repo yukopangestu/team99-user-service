@@ -1,9 +1,9 @@
 package api
 
 import (
-	iRoutes "team99_listing_service/api/route"
-	"team99_listing_service/config"
-	"team99_listing_service/module/database"
+	iRoutes "team99_user_service/api/route"
+	"team99_user_service/config"
+	"team99_user_service/module/database"
 
 	"github.com/labstack/echo/v4"
 )

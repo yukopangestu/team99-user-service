@@ -1,10 +1,9 @@
-module team99_listing_service
+module team99_user_service
 
 go 1.25.4
 
 require (
 	github.com/go-playground/validator/v10 v10.28.0
-	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/labstack/echo/v4 v4.13.4
 	gorm.io/driver/mysql v1.6.0
 	gorm.io/gorm v1.31.1

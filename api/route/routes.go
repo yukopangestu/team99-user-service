@@ -1,11 +1,11 @@
 package route
 
 import (
-	authmiddleware "team99_listing_service/api/middleware"
-	"team99_listing_service/config"
-	Ihandler "team99_listing_service/module/handler"
-	Irepository "team99_listing_service/module/repository"
-	Iservice "team99_listing_service/module/service"
+	authmiddleware "team99_user_service/api/middleware"
+	"team99_user_service/config"
+	Ihandler "team99_user_service/module/handler"
+	Irepository "team99_user_service/module/repository"
+	Iservice "team99_user_service/module/service"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -28,10 +28,10 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB, cfg *config.Config) {
 		internalUser.Use(authMiddleware.ValidateSecretKey())
 		internalUser.GET("/", userHandler.GetAllUser)
 		internalUser.GET("/:id", userHandler.GetUserById)
-		internalUser.POST("/", userHandler.CreateListing)
+		internalUser.POST("/", userHandler.CreateUser)
 
 		//This API doesn't need different handler because it has the same request and response with the internal one
 		publicUser := v1.Group("public-api/users")
-		publicUser.POST("/", userHandler.CreateListing)
+		publicUser.POST("/", userHandler.CreateUser)
 	}
 }
